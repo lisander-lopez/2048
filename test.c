@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include "CUnit.h"
 #include "Basic.h"
 #include "helper.h"
 
-void testBoardEquality(Box gric[GRID_SIZE][GRID_SIZE]);
+void testBoardEquality(Box grid[GRID_SIZE][GRID_SIZE]);
 
 /* Test Left with the number on an edge
     [][][][]            [][][][]
@@ -13,7 +14,11 @@ void testBoardEquality(Box gric[GRID_SIZE][GRID_SIZE]);
     [][][][]           [][][][]
 
 */
-void testMoveLeft0(void) {}
+void testMoveLeft0(void)
+{
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+}
 /* Test Left with the number NOT on an edge
     [][][][]            [][][][]
     [][2][2][] ----->  [4][][][]
@@ -80,8 +85,27 @@ void testMoveDown1(void) {}
 */
 void testMultipleOps(void) {}
 
-void testBoardEquality(Box gric[GRID_SIZE][GRID_SIZE])
+void testEmptyPopulate(void)
 {
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+    bool empty = true;
+    for (int i = 0; i < GRID_SIZE; i++)
+    {
+        for (int j = 0; j < GRID_SIZE; j++)
+        {
+            Box b = grid[i][j];
+            if (b.val != 0)
+            {
+                empty = false;
+            }
+        }
+    }
+    CU_ASSERT_TRUE(empty);
+}
+void testBoardEquality(Box grid[GRID_SIZE][GRID_SIZE])
+{
+
     //CU_ASSERT_EQUAL(retVal, expected);
 }
 
@@ -117,7 +141,8 @@ int main()
         (NULL == CU_add_test(pSuite, "test05", testMoveUp1)) ||
         (NULL == CU_add_test(pSuite, "test06", testMoveDown0)) ||
         (NULL == CU_add_test(pSuite, "test07", testMoveDown1)) ||
-        (NULL == CU_add_test(pSuite, "test08", testMultipleOps)))
+        (NULL == CU_add_test(pSuite, "test08", testMultipleOps)) ||
+        (NULL == CU_add_test(pSuite, "test08", testEmptyPopulate)))
     {
         CU_cleanup_registry();
         return CU_get_error();

@@ -31,3 +31,14 @@ void moveDown(Box grid[GRID_SIZE][GRID_SIZE])
 int highScore(Box grid[GRID_SIZE][GRID_SIZE])
 {
 }
+
+void populateGrid(Box grid[GRID_SIZE][GRID_SIZE])
+{
+    for (int x = 0; x < GRID_SIZE; x++)
+    {
+        for (int y = 0; y < GRID_SIZE; y++)
+        {
+            grid[x][y].val = 0;
+        }
+    }
+}

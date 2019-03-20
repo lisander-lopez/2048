@@ -24,8 +24,8 @@ term.o: term.c
 test.o: test.c
 	$(CC) -c $(FLAGS) -I $(CUNIT_PATH_PREFIX)include/$(CUNIT_DIRECTORY) test.c
 
-tests: helper.o test.o
-	gcc -Wall -L $(CUNIT_PATH_PREFIX)lib -I $(CUNIT_PATH_PREFIX)include/$(CUNIT_DIRECTORY) -o test helper.o test.o -lcunit
+tests: helper.o test.c
+	gcc -Wall -L $(CUNIT_PATH_PREFIX)lib -I $(CUNIT_PATH_PREFIX)include/$(CUNIT_DIRECTORY) -o test helper.o test.c -lcunit
 
 clean:
 	rm *.o test program
