@@ -10,13 +10,13 @@ ifeq ($(OS), Linux)
   CUNIT_DIRECTORY = CUnit/
 endif
 
-OBJECTS = helper.o main.o term.o
+OBJECTS = helper.o
 def = defs.h
 CC = gcc
 FLAGS = -g -Wall -Werror -std=c11
 
 program: main.o
-	$(CC) $(FLAGS) -o program main.o
+	$(CC) $(FLAGS) -o program main.o $(OBJECTS)
 main.o: $(def) helper.o term.o
 helper.o: $(def) term.o
 term.o: term.c

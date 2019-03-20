@@ -42,3 +42,22 @@ void populateGrid(Box grid[GRID_SIZE][GRID_SIZE])
         }
     }
 }
+
+void displayGrid(Box grid[GRID_SIZE][GRID_SIZE])
+{
+    for (int x = 0; x < GRID_SIZE; x++)
+    {
+        for (int y = 0; y < GRID_SIZE; y++)
+        {
+            if (grid[x][y].val == 0)
+            { // If its a zero Box
+                printf("[   ]");
+            }
+            else
+            {
+                printf("[ %u ]", grid[x][y].val);
+            }
+        }
+        printf("\n");
+    }
+}

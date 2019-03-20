@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "defs.h"
-
+#include "helper.h"
 /*
 
 Parts of this code was hugely influenced by my CSE220 - Systems Programming Class,
@@ -19,4 +19,9 @@ Finish condition : If we cant generate a random new box
 int main(int argsc, char *argsv[])
 {
     // Setup grid
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+
+    displayGrid(grid);
+    return 0;
 }

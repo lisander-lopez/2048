@@ -28,3 +28,6 @@ int highScore(Box grid[GRID_SIZE][GRID_SIZE]);
 
 // Populates all cells with empty boxes.
 void populateGrid(Box grid[GRID_SIZE][GRID_SIZE]);
+
+// Displays Grid to the terminal
+void displayGrid(Box grid[GRID_SIZE][GRID_SIZE]);
