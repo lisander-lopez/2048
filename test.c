@@ -18,6 +18,10 @@ void testMoveLeft0(void)
 {
     Box grid[GRID_SIZE][GRID_SIZE];
     populateGrid(grid);
+    grid[0][1].val = 2;
+    grid[2][1].val = 2;
+    moveLeft(grid);
+    CU_ASSERT_TRUE(grid[0][1].val == 4);
 }
 /* Test Left with the number NOT on an edge
     [][][][]            [][][][]

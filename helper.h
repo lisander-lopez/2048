@@ -31,3 +31,10 @@ void populateGrid(Box grid[GRID_SIZE][GRID_SIZE]);
 
 // Displays Grid to the terminal
 void displayGrid(Box grid[GRID_SIZE][GRID_SIZE]);
+
+/* Moves elements to the left in all arrays in grid
+    You have to call this GRID_SIZE - 1 times.
+    because if we have [0,0,0,4] first call will do [0,0,4,0] Second will do [0,4,0,0] Third will do [4,0,0,0]
+*/
+
+void leftShiftArray(Box grid[GRID_SIZE][GRID_SIZE]);

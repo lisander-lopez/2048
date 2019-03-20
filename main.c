@@ -21,7 +21,11 @@ int main(int argsc, char *argsv[])
     // Setup grid
     Box grid[GRID_SIZE][GRID_SIZE];
     populateGrid(grid);
-
+    grid[0][0].val = 2;
+    grid[1][0].val = 1;
+    grid[2][0].val = 3;
+    grid[3][0].val = 4;
+    moveLeft(grid);
     displayGrid(grid);
     return 0;
 }
