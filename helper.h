@@ -9,19 +9,19 @@ typedef struct Box
 } Box;
 
 //Adds one box value to another and deletes "val"
-void addTo(Box val, Box addTo);
+void addTo(Box grid[GRID_SIZE][GRID_SIZE], int x, int y);
 
 //Moves grid to the left
-void moveLeft(Box grid[GRID_SIZE][GRID_SIZE]);
+bool moveLeft(Box grid[GRID_SIZE][GRID_SIZE]);
 
 //Moves grid to the right
-void moveRight(Box grid[GRID_SIZE][GRID_SIZE]);
+bool moveRight(Box grid[GRID_SIZE][GRID_SIZE]);
 
 //Moves grid Up
-void moveUp(Box grid[GRID_SIZE][GRID_SIZE]);
+bool moveUp(Box grid[GRID_SIZE][GRID_SIZE]);
 
 //Moves grid Down
-void moveDown(Box grid[GRID_SIZE][GRID_SIZE]);
+bool moveDown(Box grid[GRID_SIZE][GRID_SIZE]);
 
 // Calculates largest number in grid
 int highScore(Box grid[GRID_SIZE][GRID_SIZE]);
@@ -30,7 +30,7 @@ int highScore(Box grid[GRID_SIZE][GRID_SIZE]);
 void populateGrid(Box grid[GRID_SIZE][GRID_SIZE]);
 
 // Displays Grid to the terminal
-void displayGrid(Box grid[GRID_SIZE][GRID_SIZE]);
+//void displayGrid(Box grid[GRID_SIZE][GRID_SIZE]);
 
 /* Moves elements to the left in all arrays in grid
     You have to call this GRID_SIZE - 1 times.

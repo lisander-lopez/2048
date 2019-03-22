@@ -16,7 +16,7 @@ CC = gcc
 FLAGS = -g -Wall -Werror -std=c11
 
 program: main.o
-	$(CC) $(FLAGS) -o program main.o $(OBJECTS)
+	$(CC) $(FLAGS) -o program main.o $(OBJECTS) -lcurses
 main.o: $(def) helper.o term.o
 helper.o: $(def) term.o
 term.o: term.c
@@ -25,7 +25,7 @@ test.o: test.c
 	$(CC) -c $(FLAGS) -I $(CUNIT_PATH_PREFIX)include/$(CUNIT_DIRECTORY) test.c
 
 tests: helper.o test.c
-	gcc -Wall -L $(CUNIT_PATH_PREFIX)lib -I $(CUNIT_PATH_PREFIX)include/$(CUNIT_DIRECTORY) -o test helper.o test.c -lcunit
+	gcc -Wall -L $(CUNIT_PATH_PREFIX)lib -I $(CUNIT_PATH_PREFIX)include/$(CUNIT_DIRECTORY) -o test helper.o test.c -lcunit -lcurses
 
 clean:
 	rm *.o test program

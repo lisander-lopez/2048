@@ -1,8 +1,9 @@
 #include <stdio.h>
-
+#include <ncurses.h>
 #include "defs.h"
 #include "helper.h"
 #include "time.h"
+
 /*
 
 Parts of this code was hugely influenced by my CSE220 - Systems Programming Class,
@@ -23,13 +24,41 @@ int main(int argsc, char *argsv[])
     Box grid[GRID_SIZE][GRID_SIZE];
     populateGrid(grid);
 
-    srand(time(NULL)); // Init rand seed
+    srand(time(NULL));   // Init rand seed
+    bool running = true; // Not loosing condition
+    initscr();
+    keypad(stdscr, TRUE);
+    cbreak();
+    //nodelay(stdscr, TRUE);
+    //noraw();
+    //noecho();
+    //Game Loop
+    /*
+    while (running)
+    {
+        int c = getch();
 
-    grid[0][0].val = 2;
-    grid[1][0].val = 1;
-    grid[2][0].val = 3;
-    grid[3][0].val = 4;
+        if (c == KEY_LEFT)
+        {
+            if (!moveLeft(grid))
+            {
+                running = false;
+            }
+            else
+            {
+                displayGrid(grid);
+            }
+        }
+    }
+    */
+    grid[0][1].val = 2;
+    grid[2][1].val = 2;
     moveLeft(grid);
     displayGrid(grid);
+    refresh();
+    getch();
+    erase();
+    endwin();
+    fflush(stdout);
     return 0;
 }

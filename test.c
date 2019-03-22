@@ -31,7 +31,15 @@ void testMoveLeft0(void)
     [][][][]           [][][][]
 
 */
-void testMoveLeft1(void) {}
+void testMoveLeft1(void)
+{
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+    grid[1][1].val = 2;
+    grid[2][1].val = 2;
+    moveLeft(grid);
+    CU_ASSERT_TRUE(grid[0][1].val == 4);
+}
 /* Test Right with the number NOT on an edge
     [][][][]            [][][][]
     [][2][2][] ----->  [][][][4]
@@ -39,7 +47,15 @@ void testMoveLeft1(void) {}
     [][][][]           [][][][]
 
 */
-void testMoveRight0(void) {}
+void testMoveRight0(void)
+{
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+    grid[1][1].val = 2;
+    grid[2][1].val = 2;
+    moveRight(grid);
+    CU_ASSERT_TRUE(grid[3][1].val == 4);
+}
 /* Test Right with the number on an edge
     [][][][]            [][][][]
     [][2][][2] ----->  [][][][4]
@@ -47,7 +63,15 @@ void testMoveRight0(void) {}
     [][][][]           [][][][]
 
 */
-void testMoveRight1(void) {}
+void testMoveRight1(void)
+{
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+    grid[1][1].val = 2;
+    grid[3][1].val = 2;
+    moveRight(grid);
+    CU_ASSERT_TRUE(grid[3][1].val == 4);
+}
 /* Test UP with the number on an edge
     [][2][][]          [][4][2][]
     [][2][2][] ----->  [][][][]
@@ -55,7 +79,16 @@ void testMoveRight1(void) {}
     [][][][]           [][][][]
 
 */
-void testMoveUp0(void) {}
+void testMoveUp0(void)
+{
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+    grid[1][0].val = 2;
+    grid[1][1].val = 2;
+    grid[2][1].val = 2;
+    moveUp(grid);
+    CU_ASSERT_TRUE(grid[0][1].val == 4 && grid[2][0].val == 2);
+}
 /* Test Up with the number NOT on an edge
     [][][][]           [][4][][]
     [][2][][] ----->  [][][][]
@@ -63,7 +96,15 @@ void testMoveUp0(void) {}
     [][2][]           [][][][]
 
 */
-void testMoveUp1(void) {}
+void testMoveUp1(void)
+{
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+    grid[1][1].val = 2;
+    grid[1][3].val = 2;
+    moveUp(grid);
+    CU_ASSERT_TRUE(grid[0][1].val == 4);
+}
 /* Test Down with the number on an edge
     [][][][]            [][][][]
     [][][2][] ----->    [][][][]
@@ -71,7 +112,15 @@ void testMoveUp1(void) {}
     [][][2][]           [][][4][]
 
 */
-void testMoveDown0(void) {}
+void testMoveDown0(void)
+{
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+    grid[2][1].val = 2;
+    grid[2][3].val = 2;
+    moveDown(grid);
+    CU_ASSERT_TRUE(grid[2][3].val == 4);
+}
 /* Test Down with the number not on an edge
     [][2][][]           [][][][]
     [][2][][] ----->   [][][][]
@@ -79,7 +128,17 @@ void testMoveDown0(void) {}
     [][2][][]           [][4][][]
 
 */
-void testMoveDown1(void) {}
+void testMoveDown1(void)
+{
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+    grid[1][0].val = 2;
+    grid[1][1].val = 2;
+    grid[1][2].val = 2;
+    grid[1][3].val = 2;
+    moveDown(grid);
+    CU_ASSERT_TRUE(grid[0][2].val == 4 && grid[0][3].val == 4);
+}
 
 /* Test Multiple Operatons in the following order, up, right, right, left
     [][][][]           [4][2][][]
@@ -88,7 +147,19 @@ void testMoveDown1(void) {}
     [][][][]           [][][][]
 
 */
-void testMultipleOps(void) {}
+void testMultipleOps(void)
+{
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+    grid[1][1].val = 2;
+    grid[1][2].val = 2;
+    grid[2][1].val = 2;
+    moveUp(grid);
+    moveRight(grid);
+    moveRight(grid);
+    moveLeft(grid);
+    CU_ASSERT_TRUE(grid[0][0].val == 4 && grid[1][0].val == 2);
+}
 
 void testEmptyPopulate(void)
 {

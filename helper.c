@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <ncurses.h>
 #include "defs.h"
 
 typedef struct Box
@@ -8,13 +9,28 @@ typedef struct Box
 
 } Box;
 
-void addTo(Box val, Box addTo)
+void displayGrid(Box grid[GRID_SIZE][GRID_SIZE]);
+
+bool addRandom(Box grid[GRID_SIZE][GRID_SIZE]);
+void addTo(Box grid[GRID_SIZE][GRID_SIZE], int x, int y, char c) // Last parameter c == L add from right c == R add from left, c== U c == D same conecept.
 {
+    if (c == 'H')
+    {
+        int num = grid[x + 1][y].val;
+        grid[x][y].val += num;
+        grid[x + 1][y].val = 0;
+    }
+    if (c == 'V')
+    {
+        int num = grid[x][y + 1].val;
+        grid[x][y].val += num;
+        grid[x][y + 1].val = 0;
+    }
 }
 
 void leftShiftArray(Box grid[GRID_SIZE][GRID_SIZE])
 {
-    for (int i = 0; i < GRID_SIZE; i++)
+    for (int i = 0; i < GRID_SIZE; i++) // Inefficient but we have to run this nested loops Grid_size - 1 times to ensure everything was shifted left
     {
         for (int y = 0; y < GRID_SIZE; y++)
         {
@@ -29,7 +45,7 @@ void leftShiftArray(Box grid[GRID_SIZE][GRID_SIZE])
                     if (grid[x][y].val == 0)
                     {
                         int nextVal = grid[x + 1][y].val;
-                        printf("next val %d\n", nextVal);
+                        //printf("next val %d\n", nextVal);
                         grid[x][y].val = nextVal;
                         grid[x + 1][y].val = 0;
                     }
@@ -39,7 +55,7 @@ void leftShiftArray(Box grid[GRID_SIZE][GRID_SIZE])
     }
 }
 
-void moveLeft(Box grid[GRID_SIZE][GRID_SIZE])
+bool moveLeft(Box grid[GRID_SIZE][GRID_SIZE])
 {
     leftShiftArray(grid);
     // We will scan left to right and merge the left most rows
@@ -47,19 +63,27 @@ void moveLeft(Box grid[GRID_SIZE][GRID_SIZE])
     {
         for (int x = 0; x < GRID_SIZE; x++) // Col
         {
+            // if the value at the current box equals the value next to the box add them together
+            if (grid[x][y].val == grid[x + 1][y].val)
+            {
+                addTo(grid, x, y, 'H');
+                x++;
+            }
         }
     }
+    leftShiftArray(grid);   // There will be 0's in place of the adding so we will shift the array.
+    return addRandom(grid); // Adds random number to grid and returns if was successful
 }
 
-void moveRight(Box grid[GRID_SIZE][GRID_SIZE])
+bool moveRight(Box grid[GRID_SIZE][GRID_SIZE])
 {
 }
 
-void moveUp(Box grid[GRID_SIZE][GRID_SIZE])
+bool moveUp(Box grid[GRID_SIZE][GRID_SIZE])
 {
 }
 
-void moveDown(Box grid[GRID_SIZE][GRID_SIZE])
+bool moveDown(Box grid[GRID_SIZE][GRID_SIZE])
 {
 }
 
@@ -128,10 +152,14 @@ void displayGrid(Box grid[GRID_SIZE][GRID_SIZE])
         {
             if (grid[x][y].val == 0)
             { // If its a zero Box
+                move(y, x);
+                refresh();
                 printf("[   ]");
             }
             else
             {
+                move(y, x);
+                refresh();
                 printf("[ %u ]", grid[x][y].val);
             }
         }
