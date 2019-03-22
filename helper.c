@@ -80,7 +80,19 @@ void populateGrid(Box grid[GRID_SIZE][GRID_SIZE])
 
 bool addRandom(Box grid[GRID_SIZE][GRID_SIZE])
 {
-    int rVal = 2 + rand() % (4 + 1 - 2);             // Generates random value number 2 - 4,
+    int rVal = 2 + rand() % (4 + 1 - 2); // Generates random value number 2 - 4, NO.. what if its 3?
+    if (rVal == 3)
+    {
+        int weight = 0 + rand() % (100 + 1 - 0); // GEnerates random number from 0-100
+        if (weight < 50)
+        { // Round down
+            rVal = 2;
+        }
+        else
+        { // Round up
+            rVal = 4;
+        }
+    }
     int rX = 0 + rand() % ((GRID_SIZE - 1) + 1 - 0); // Generates random X val,
     int rY = 0 + rand() % ((GRID_SIZE - 1) + 1 - 0); // Generates random Y val,
     bool retVal = false;

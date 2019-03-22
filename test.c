@@ -4,6 +4,7 @@
 #include "CUnit.h"
 #include "Basic.h"
 #include "helper.h"
+#include "time.h"
 
 void testBoardEquality(Box grid[GRID_SIZE][GRID_SIZE]);
 
@@ -120,6 +121,7 @@ void testRandomAdder0()
     populateGrid(grid);
     bool add = addRandom(grid);
     int valCount = 0;
+    displayGrid(grid);
     for (int y = 0; y < GRID_SIZE; y++)
     {
         for (int x = 0; x < GRID_SIZE; x++)
@@ -178,6 +180,7 @@ int main()
         CU_cleanup_registry();
         return CU_get_error();
     }
+    srand(time(NULL)); // Init random seed
 
     /* Run all tests using the CUnit Basic interface */
     CU_basic_set_mode(CU_BRM_VERBOSE);
