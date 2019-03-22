@@ -38,3 +38,7 @@ void displayGrid(Box grid[GRID_SIZE][GRID_SIZE]);
 */
 
 void leftShiftArray(Box grid[GRID_SIZE][GRID_SIZE]);
+
+// Adds random number 2 or 4 and adds to the grid, if cannot add, return false and game has ended
+
+bool addRandom(Box grid[GRID_SIZE][GRID_SIZE]);

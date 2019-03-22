@@ -78,6 +78,36 @@ void populateGrid(Box grid[GRID_SIZE][GRID_SIZE])
     }
 }
 
+bool addRandom(Box grid[GRID_SIZE][GRID_SIZE])
+{
+    int rVal = 2 + rand() % (4 + 1 - 2);             // Generates random value number 2 - 4,
+    int rX = 0 + rand() % ((GRID_SIZE - 1) + 1 - 0); // Generates random X val,
+    int rY = 0 + rand() % ((GRID_SIZE - 1) + 1 - 0); // Generates random Y val,
+    bool retVal = false;
+    if (grid[rX][rY].val == 0) // If value at random picked position is 0
+    {
+        grid[rX][rY].val = rVal;
+        retVal = true;
+        return retVal;
+    }
+    else // Else go through each position on the grid and check if random value can be addded
+    {
+        for (int x = 0; x < GRID_SIZE; x++)
+        {
+            for (int y = 0; y < GRID_SIZE; y++)
+            {
+                if (grid[rX][rY].val == 0)
+                {
+                    grid[rX][rY].val = rVal;
+                    retVal = true;
+                    return retVal;
+                }
+            }
+        }
+        return retVal;
+    }
+}
+
 void displayGrid(Box grid[GRID_SIZE][GRID_SIZE])
 {
     for (int y = 0; y < GRID_SIZE; y++)
