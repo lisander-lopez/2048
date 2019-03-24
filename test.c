@@ -87,7 +87,8 @@ void testMoveUp0(void)
     grid[1][1].val = 2;
     grid[2][1].val = 2;
     moveUp(grid);
-    CU_ASSERT_TRUE(grid[0][1].val == 4 && grid[2][0].val == 2);
+    //displayGrid(grid);
+    CU_ASSERT_TRUE(grid[1][0].val == 4 && grid[2][0].val == 2);
 }
 /* Test Up with the number NOT on an edge
     [][][][]           [][4][][]
@@ -103,7 +104,7 @@ void testMoveUp1(void)
     grid[1][1].val = 2;
     grid[1][3].val = 2;
     moveUp(grid);
-    CU_ASSERT_TRUE(grid[0][1].val == 4);
+    CU_ASSERT_TRUE(grid[1][0].val == 4);
 }
 /* Test Down with the number on an edge
     [][][][]            [][][][]
@@ -137,7 +138,7 @@ void testMoveDown1(void)
     grid[1][2].val = 2;
     grid[1][3].val = 2;
     moveDown(grid);
-    CU_ASSERT_TRUE(grid[0][2].val == 4 && grid[0][3].val == 4);
+    CU_ASSERT_TRUE(grid[1][2].val == 4 && grid[1][3].val == 4);
 }
 
 /* Test Multiple Operatons in the following order, up, right, right, left
@@ -158,6 +159,7 @@ void testMultipleOps(void)
     moveRight(grid);
     moveRight(grid);
     moveLeft(grid);
+    //displayGrid(grid);
     CU_ASSERT_TRUE(grid[0][0].val == 4 && grid[1][0].val == 2);
 }
 
@@ -192,7 +194,7 @@ void testRandomAdder0()
     populateGrid(grid);
     bool add = addRandom(grid);
     int valCount = 0;
-    displayGrid(grid);
+    //displayGrid(grid);
     for (int y = 0; y < GRID_SIZE; y++)
     {
         for (int x = 0; x < GRID_SIZE; x++)
@@ -209,6 +211,17 @@ void testRandomAdder0()
 // Checks winning state that a full box cannot be added a random value to
 void testRandomAdder1()
 {
+    Box grid[GRID_SIZE][GRID_SIZE];
+    populateGrid(grid);
+
+    for (int y = 0; y < GRID_SIZE; y++)
+    {
+        for (int x = 0; x < GRID_SIZE; x++)
+        {
+            grid[x][y].val = 2; // Make all boxes 2,
+        }
+    }
+    CU_ASSERT_TRUE(!addRandom(grid));
 }
 
 /* The main() function for setting up and running the tests.
@@ -235,18 +248,18 @@ int main()
 
     /* add the tests to the suite */
     if (
-        (NULL == CU_add_test(pSuite, "test00", testMoveLeft0)) ||
-        (NULL == CU_add_test(pSuite, "test01", testMoveLeft1)) ||
-        (NULL == CU_add_test(pSuite, "test02", testMoveRight0)) ||
-        (NULL == CU_add_test(pSuite, "test03", testMoveRight1)) ||
-        (NULL == CU_add_test(pSuite, "test04", testMoveUp0)) ||
-        (NULL == CU_add_test(pSuite, "test05", testMoveUp1)) ||
-        (NULL == CU_add_test(pSuite, "test06", testMoveDown0)) ||
-        (NULL == CU_add_test(pSuite, "test07", testMoveDown1)) ||
-        (NULL == CU_add_test(pSuite, "test08", testMultipleOps)) ||
-        (NULL == CU_add_test(pSuite, "test08", testEmptyPopulate)) ||
-        (NULL == CU_add_test(pSuite, "test08", testRandomAdder0)) ||
-        (NULL == CU_add_test(pSuite, "test08", testRandomAdder1)))
+        (NULL == CU_add_test(pSuite, "testMoveLeft0", testMoveLeft0)) ||
+        (NULL == CU_add_test(pSuite, "testMoveLeft1", testMoveLeft1)) ||
+        (NULL == CU_add_test(pSuite, "testMoveRight0", testMoveRight0)) ||
+        (NULL == CU_add_test(pSuite, "testMoveRight1", testMoveRight1)) ||
+        (NULL == CU_add_test(pSuite, "testMoveUp0", testMoveUp0)) ||
+        (NULL == CU_add_test(pSuite, "testMoveUp1", testMoveUp1)) ||
+        (NULL == CU_add_test(pSuite, "testMoveDown0", testMoveDown0)) ||
+        (NULL == CU_add_test(pSuite, "testMoveDown1", testMoveDown1)) ||
+        (NULL == CU_add_test(pSuite, "testMultipleOps", testMultipleOps)) ||
+        (NULL == CU_add_test(pSuite, "testEmptyPopulate", testEmptyPopulate)) ||
+        (NULL == CU_add_test(pSuite, "testRandomAdder0", testRandomAdder0)) ||
+        (NULL == CU_add_test(pSuite, "testRandomAdder1", testRandomAdder1)))
     {
         CU_cleanup_registry();
         return CU_get_error();

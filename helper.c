@@ -55,6 +55,85 @@ void leftShiftArray(Box grid[GRID_SIZE][GRID_SIZE])
     }
 }
 
+void rightShiftArray(Box grid[GRID_SIZE][GRID_SIZE])
+{
+    for (int i = 0; i < GRID_SIZE; i++) // Inefficient but we have to run this nested loops Grid_size - 1 times to ensure everything was shifted left
+    {
+        for (int y = 0; y < GRID_SIZE; y++) // Each Row
+        {
+            for (int x = GRID_SIZE - 1; x >= 0; x--) // Each number in row (col)
+            {
+                if (x - 1 < 0)
+                {
+                    // Out of bounds
+                }
+                else
+                {
+                    if (grid[x][y].val == 0)
+                    {
+                        int nextVal = grid[x - 1][y].val;
+                        //printf("next val %d\n", nextVal);
+                        grid[x][y].val = nextVal;
+                        grid[x - 1][y].val = 0;
+                    }
+                }
+            }
+        }
+    }
+}
+void upShiftArray(Box grid[GRID_SIZE][GRID_SIZE])
+{
+    for (int i = 0; i < GRID_SIZE; i++) // Inefficient but we have to run this nested loops Grid_size - 1 times to ensure everything was shifted
+    {
+        for (int x = 0; x < GRID_SIZE; x++) // Each col
+        {
+            for (int y = 0; y < GRID_SIZE; y++) // Each number in col
+            {
+                if (y + 1 >= GRID_SIZE)
+                {
+                    // Out of bounds
+                }
+                else
+                {
+                    if (grid[x][y].val == 0)
+                    {
+                        int nextVal = grid[x][y + 1].val;
+                        //printf("next val %d\n", nextVal);
+                        grid[x][y].val = nextVal;
+                        grid[x][y + 1].val = 0;
+                    }
+                }
+            }
+        }
+    }
+}
+void downShiftArray(Box grid[GRID_SIZE][GRID_SIZE])
+{
+    for (int i = 0; i < GRID_SIZE; i++) // Inefficient but we have to run this nested loops Grid_size - 1 times to ensure everything was shifted
+    {
+        for (int x = 0; x < GRID_SIZE; x++) // Each col
+        {
+            for (int y = GRID_SIZE - 1; y >= 0; y--) // Each number in col
+            {
+                if (y - 1 < 0)
+                {
+                    // Out of bounds
+                }
+                else
+                {
+                    if (grid[x][y].val == 0)
+                    {
+                        int nextVal = grid[x][y - 1].val;
+                        //printf("next val %d\n", nextVal);
+                        grid[x][y].val = nextVal;
+                        grid[x][y - 1].val = 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
 bool moveLeft(Box grid[GRID_SIZE][GRID_SIZE])
 {
     leftShiftArray(grid);
@@ -77,14 +156,65 @@ bool moveLeft(Box grid[GRID_SIZE][GRID_SIZE])
 
 bool moveRight(Box grid[GRID_SIZE][GRID_SIZE])
 {
+    rightShiftArray(grid);
+    // We will scan right to left and merge the right most rows
+    for (int y = 0; y < GRID_SIZE; y++) //Row
+    {
+        for (int x = 0; x < GRID_SIZE; x++) // Col
+        {
+            // if the value at the current box equals the value next to the box add them together
+            if (grid[x][y].val == grid[x + 1][y].val)
+            {
+                addTo(grid, x, y, 'H');
+                x++;
+            }
+        }
+    }
+    rightShiftArray(grid);  // There will be 0's in place of the adding so we will shift the array.
+    return addRandom(grid); // Adds random number to grid and returns if was successful
 }
 
 bool moveUp(Box grid[GRID_SIZE][GRID_SIZE])
 {
+    upShiftArray(grid);
+    // We will scan right to left and merge the right most rows
+    for (int x = 0; x < GRID_SIZE; x++) //Row
+    {
+        for (int y = 0; y < GRID_SIZE; y++) // Col
+        {
+            // if the value at the current box equals the value next to the box add them together
+            if (grid[x][y].val == grid[x][y + 1].val)
+            {
+                addTo(grid, x, y, 'V');
+                //printf();
+                y++;
+            }
+        }
+    }
+    upShiftArray(grid); // There will be 0's in place of the adding so we will shift the array.
+    //return addRandom(grid); // Adds random number to grid and returns if was successful
+    return true;
 }
 
 bool moveDown(Box grid[GRID_SIZE][GRID_SIZE])
 {
+    downShiftArray(grid);
+    // We will scan right to left and merge the right most rows
+    for (int x = 0; x < GRID_SIZE; x++) //Row
+    {
+        for (int y = 0; y < GRID_SIZE; y++) // Col
+        {
+            // if the value at the current box equals the value next to the box add them together
+            if (grid[x][y].val == grid[x][y + 1].val)
+            {
+                addTo(grid, x, y, 'V');
+                //printf();
+                y++;
+            }
+        }
+    }
+    downShiftArray(grid);   // There will be 0's in place of the adding so we will shift the array.
+    return addRandom(grid); // Adds random number to grid and returns if was successful
 }
 
 int highScore(Box grid[GRID_SIZE][GRID_SIZE])

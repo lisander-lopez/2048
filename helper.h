@@ -36,8 +36,11 @@ void populateGrid(Box grid[GRID_SIZE][GRID_SIZE]);
     You have to call this GRID_SIZE - 1 times.
     because if we have [0,0,0,4] first call will do [0,0,4,0] Second will do [0,4,0,0] Third will do [4,0,0,0]
 */
-
 void leftShiftArray(Box grid[GRID_SIZE][GRID_SIZE]);
+
+void rightShiftArray(Box grid[GRID_SIZE][GRID_SIZE]);
+void upShiftArray(Box grid[GRID_SIZE][GRID_SIZE]);
+void downShiftArray(Box grid[GRID_SIZE][GRID_SIZE]);
 
 // Adds random number 2 or 4 and adds to the grid, if cannot add, return false and game has ended
 
