@@ -191,9 +191,8 @@ bool moveUp(Box grid[GRID_SIZE][GRID_SIZE])
             }
         }
     }
-    upShiftArray(grid); // There will be 0's in place of the adding so we will shift the array.
-    //return addRandom(grid); // Adds random number to grid and returns if was successful
-    return true;
+    upShiftArray(grid);     // There will be 0's in place of the adding so we will shift the array.
+    return addRandom(grid); // Adds random number to grid and returns if was successful
 }
 
 bool moveDown(Box grid[GRID_SIZE][GRID_SIZE])
@@ -230,6 +229,7 @@ void populateGrid(Box grid[GRID_SIZE][GRID_SIZE])
             grid[x][y].val = 0;
         }
     }
+    addRandom(grid);
 }
 
 bool addRandom(Box grid[GRID_SIZE][GRID_SIZE])
@@ -250,6 +250,8 @@ bool addRandom(Box grid[GRID_SIZE][GRID_SIZE])
     int rX = 0 + rand() % ((GRID_SIZE - 1) + 1 - 0); // Generates random X val,
     int rY = 0 + rand() % ((GRID_SIZE - 1) + 1 - 0); // Generates random Y val,
     bool retVal = false;
+    move(0, 0);
+    printf("rX: %d rY: %d rV: %d \n", rX, rY, rVal);
     if (grid[rX][rY].val == 0) // If value at random picked position is 0
     {
         grid[rX][rY].val = rVal;
@@ -262,9 +264,9 @@ bool addRandom(Box grid[GRID_SIZE][GRID_SIZE])
         {
             for (int y = 0; y < GRID_SIZE; y++)
             {
-                if (grid[rX][rY].val == 0)
+                if (grid[x][y].val == 0)
                 {
-                    grid[rX][rY].val = rVal;
+                    grid[x][y].val = rVal;
                     retVal = true;
                     return retVal;
                 }

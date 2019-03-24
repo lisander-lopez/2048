@@ -33,7 +33,7 @@ int main(int argsc, char *argsv[])
     //noraw();
     //noecho();
     //Game Loop
-    /*
+    displayGrid(grid);
     while (running)
     {
         int c = getch();
@@ -49,12 +49,40 @@ int main(int argsc, char *argsv[])
                 displayGrid(grid);
             }
         }
+        if (c == KEY_RIGHT)
+        {
+            if (!moveRight(grid))
+            {
+                running = false;
+            }
+            else
+            {
+                displayGrid(grid);
+            }
+        }
+        if (c == KEY_UP)
+        {
+            if (!moveUp(grid))
+            {
+                running = false;
+            }
+            else
+            {
+                displayGrid(grid);
+            }
+        }
+        if (c == KEY_DOWN)
+        {
+            if (!moveDown(grid))
+            {
+                running = false;
+            }
+            else
+            {
+                displayGrid(grid);
+            }
+        }
     }
-    */
-    grid[0][1].val = 2;
-    grid[2][1].val = 2;
-    moveLeft(grid);
-    displayGrid(grid);
     refresh();
     getch();
     erase();
