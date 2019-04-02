@@ -20,9 +20,9 @@ Finish condition : If we cant generate a random new box
 
 int main(int argsc, char *argsv[])
 {
-    // Setup grid
-    Box grid[GRID_SIZE][GRID_SIZE];
-    populateGrid(grid);
+    // Setup Game and Grid
+    Game g;
+    g.grid = populateGrid(g.grid);
 
     srand(time(NULL));   // Init rand seed
     bool running = true; // Not loosing condition
@@ -33,53 +33,53 @@ int main(int argsc, char *argsv[])
     //noraw();
     //noecho();
     //Game Loop
-    displayGrid(grid);
+    displayGrid(g.grid);
     while (running)
     {
         int c = getch();
 
         if (c == KEY_LEFT)
         {
-            if (!moveLeft(grid))
+            if (!moveLeft(g.grid))
             {
                 running = false;
             }
             else
             {
-                displayGrid(grid);
+                displayGrid(g.grid);
             }
         }
         if (c == KEY_RIGHT)
         {
-            if (!moveRight(grid))
+            if (!moveRight(g.grid))
             {
                 running = false;
             }
             else
             {
-                displayGrid(grid);
+                displayGrid(g.grid);
             }
         }
         if (c == KEY_UP)
         {
-            if (!moveUp(grid))
+            if (!moveUp(g.grid))
             {
                 running = false;
             }
             else
             {
-                displayGrid(grid);
+                displayGrid(g.grid);
             }
         }
         if (c == KEY_DOWN)
         {
-            if (!moveDown(grid))
+            if (!moveDown(g.grid))
             {
                 running = false;
             }
             else
             {
-                displayGrid(grid);
+                displayGrid(g.grid);
             }
         }
     }

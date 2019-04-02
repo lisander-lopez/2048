@@ -8,40 +8,52 @@ typedef struct Box
 
 } Box;
 
+typedef struct Game
+{
+    int high;
+    Box **grid;
+} Game;
+
+typedef enum
+{
+    HORIZONTAL,
+    VERTICAL
+} Direction;
+
+// Adds random number 2 or 4 and adds to the grid, if cannot add, return false and game has ended
+
+bool addRandom(Box **grid);
 //Adds one box value to another and deletes "val"
-void addTo(Box grid[GRID_SIZE][GRID_SIZE], int x, int y);
+void addTo(Box **grid, int x, int y, Direction d);
 
 //Moves grid to the left
-bool moveLeft(Box grid[GRID_SIZE][GRID_SIZE]);
+bool moveLeft(Box **grid);
 
 //Moves grid to the right
-bool moveRight(Box grid[GRID_SIZE][GRID_SIZE]);
+bool moveRight(Box **grid);
 
 //Moves grid Up
-bool moveUp(Box grid[GRID_SIZE][GRID_SIZE]);
+bool moveUp(Box **grid);
 
 //Moves grid Down
-bool moveDown(Box grid[GRID_SIZE][GRID_SIZE]);
+bool moveDown(Box **grid);
 
 // Calculates largest number in grid
-int highScore(Box grid[GRID_SIZE][GRID_SIZE]);
+int highScore(Box **grid);
 
 // Populates all cells with empty boxes.
-void populateGrid(Box grid[GRID_SIZE][GRID_SIZE]);
+Box **populateGrid(Box **grid);
 
 // Displays Grid to the terminal
-//void displayGrid(Box grid[GRID_SIZE][GRID_SIZE]);
+void displayGrid(Box **grid);
 
 /* Moves elements to the left in all arrays in grid
     You have to call this GRID_SIZE - 1 times.
     because if we have [0,0,0,4] first call will do [0,0,4,0] Second will do [0,4,0,0] Third will do [4,0,0,0]
 */
-void leftShiftArray(Box grid[GRID_SIZE][GRID_SIZE]);
+void leftShiftArray(Box **grid);
 
-void rightShiftArray(Box grid[GRID_SIZE][GRID_SIZE]);
-void upShiftArray(Box grid[GRID_SIZE][GRID_SIZE]);
-void downShiftArray(Box grid[GRID_SIZE][GRID_SIZE]);
+void rightShiftArray(Box **grid);
+void upShiftArray(Box **grid);
+void downShiftArray(Box **grid);
 
-// Adds random number 2 or 4 and adds to the grid, if cannot add, return false and game has ended
-
-bool addRandom(Box grid[GRID_SIZE][GRID_SIZE]);
