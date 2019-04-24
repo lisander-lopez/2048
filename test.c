@@ -17,12 +17,14 @@ void testBoardEquality(Box grid[GRID_SIZE][GRID_SIZE]);
 */
 void testMoveLeft0(void)
 {
-    Box grid[GRID_SIZE][GRID_SIZE];
-    populateGrid(grid);
-    grid[0][1].val = 2;
-    grid[2][1].val = 2;
-    moveLeft(grid);
-    CU_ASSERT_TRUE(grid[0][1].val == 4);
+
+    Game g;
+    g.grid = populateGrid(g.grid);
+
+    g.grid[0][1].val = 2;
+    g.grid[2][1].val = 2;
+    moveLeft(g.grid);
+    CU_ASSERT_TRUE(g.grid[0][1].val == 4);
 }
 /* Test Left with the number NOT on an edge
     [][][][]            [][][][]
@@ -33,12 +35,12 @@ void testMoveLeft0(void)
 */
 void testMoveLeft1(void)
 {
-    Box grid[GRID_SIZE][GRID_SIZE];
-    populateGrid(grid);
-    grid[1][1].val = 2;
-    grid[2][1].val = 2;
-    moveLeft(grid);
-    CU_ASSERT_TRUE(grid[0][1].val == 4);
+    Game g;
+    g.grid = populateGrid(g.grid);
+    g.grid[1][1].val = 2;
+    g.grid[2][1].val = 2;
+    moveLeft(g.grid);
+    CU_ASSERT_TRUE(g.grid[0][1].val == 4);
 }
 /* Test Right with the number NOT on an edge
     [][][][]            [][][][]
@@ -49,12 +51,12 @@ void testMoveLeft1(void)
 */
 void testMoveRight0(void)
 {
-    Box grid[GRID_SIZE][GRID_SIZE];
-    populateGrid(grid);
-    grid[1][1].val = 2;
-    grid[2][1].val = 2;
-    moveRight(grid);
-    CU_ASSERT_TRUE(grid[3][1].val == 4);
+    Game g;
+    g.grid = populateGrid(g.grid);
+    g.grid[2][1].val = 2;
+    g.grid[1][1].val = 2;
+    moveRight(g.grid);
+    CU_ASSERT_TRUE(g.grid[3][1].val == 4);
 }
 /* Test Right with the number on an edge
     [][][][]            [][][][]
@@ -65,12 +67,12 @@ void testMoveRight0(void)
 */
 void testMoveRight1(void)
 {
-    Box grid[GRID_SIZE][GRID_SIZE];
-    populateGrid(grid);
-    grid[1][1].val = 2;
-    grid[3][1].val = 2;
+    Game g;
+    g.grid = populateGrid(g.grid);
+    g.grid[1][1].val = 2;
+    g.grid[3][1].val = 2;
     moveRight(grid);
-    CU_ASSERT_TRUE(grid[3][1].val == 4);
+    CU_ASSERT_TRUE(g.grid[3][1].val == 4);
 }
 /* Test UP with the number on an edge
     [][2][][]          [][4][2][]

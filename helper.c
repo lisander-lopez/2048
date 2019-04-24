@@ -152,12 +152,12 @@ bool moveLeft(Box **grid)
     // We will scan left to right and merge the left most rows
     for (int y = 0; y < GRID_SIZE; y++) //Row
     {
-        for (int x = 0; x < GRID_SIZE; x++) // Col
+        for (int x = 0; x < GRID_SIZE - 1; x++) // Col - We are checking x and x + 1 so we will loop until SIZE-1
         {
             // if the value at the current box equals the value next to the box add them together
             if (grid[x][y].val == grid[x + 1][y].val)
             {
-                addTo(grid, x, y, 'H');
+                addTo(grid, x, y, HORIZONTAL);
                 x++;
             }
         }
@@ -172,12 +172,12 @@ bool moveRight(Box **grid)
     // We will scan right to left and merge the right most rows
     for (int y = 0; y < GRID_SIZE; y++) //Row
     {
-        for (int x = 0; x < GRID_SIZE; x++) // Col
+        for (int x = 0; x < GRID_SIZE - 1; x++) // Col
         {
             // if the value at the current box equals the value next to the box add them together
             if (grid[x][y].val == grid[x + 1][y].val)
             {
-                addTo(grid, x, y, 'H');
+                addTo(grid, x, y, HORIZONTAL);
                 x++;
             }
         }
@@ -192,12 +192,12 @@ bool moveUp(Box **grid)
     // We will scan right to left and merge the right most rows
     for (int x = 0; x < GRID_SIZE; x++) //Row
     {
-        for (int y = 0; y < GRID_SIZE; y++) // Col
+        for (int y = 0; y < GRID_SIZE - 1; y++) // Col
         {
             // if the value at the current box equals the value next to the box add them together
             if (grid[x][y].val == grid[x][y + 1].val)
             {
-                addTo(grid, x, y, 'V');
+                addTo(grid, x, y, VERTICAL);
                 //printf();
                 y++;
             }
@@ -213,12 +213,12 @@ bool moveDown(Box **grid)
     // We will scan right to left and merge the right most rows
     for (int x = 0; x < GRID_SIZE; x++) //Row
     {
-        for (int y = 0; y < GRID_SIZE; y++) // Col
+        for (int y = 0; y < GRID_SIZE - 1; y++) // Col
         {
             // if the value at the current box equals the value next to the box add them together
             if (grid[x][y].val == grid[x][y + 1].val)
             {
-                addTo(grid, x, y, 'V');
+                addTo(grid, x, y, VERTICAL);
                 //printf();
                 y++;
             }
@@ -230,6 +230,7 @@ bool moveDown(Box **grid)
 
 int highScore(Box **grid)
 {
+    return 0;
 }
 
 Box **populateGrid(Box **grid)
@@ -285,13 +286,13 @@ void displayGrid(Box **grid)
             { // If its a zero Box
                 move(y, x);
                 refresh();
-                printf("[   ]");
+                printf("[ %3c ]", ' ');
             }
             else
             {
                 move(y, x);
                 refresh();
-                printf("[ %u ]", grid[x][y].val);
+                printf("[ %4u ]", grid[x][y].val);
             }
         }
         printf("\n");

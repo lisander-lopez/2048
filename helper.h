@@ -42,7 +42,7 @@ bool moveDown(Box **grid);
 int highScore(Box **grid);
 
 // Populates all cells with empty boxes.
-Box **populateGrid(Box **grid);
+Box **populateGrid();
 
 // Displays Grid to the terminal
 void displayGrid(Box **grid);
@@ -56,4 +56,3 @@ void leftShiftArray(Box **grid);
 void rightShiftArray(Box **grid);
 void upShiftArray(Box **grid);
 void downShiftArray(Box **grid);
-

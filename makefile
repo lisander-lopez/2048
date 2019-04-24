@@ -13,16 +13,16 @@ endif
 OBJECTS = helper.o
 def = defs.h
 CC = gcc
-FLAGS = -g -Wall -Werror -std=c11
+CFLAGS = -g -Wall 
 
 program: main.o
-	$(CC) $(FLAGS) -o program main.o $(OBJECTS) -lcurses
+	$(CC) $(CFLAGS) -o program main.o $(OBJECTS) -lcurses -ggdb -g
 main.o: $(def) helper.o term.o
 helper.o: $(def) term.o
 term.o: term.c
 
 test.o: test.c
-	$(CC) -c $(FLAGS) -I $(CUNIT_PATH_PREFIX)include/$(CUNIT_DIRECTORY) test.c
+	$(CC) -c $(CFLAGS) -I $(CUNIT_PATH_PREFIX)include/$(CUNIT_DIRECTORY) test.c
 
 tests: helper.o test.c
 	gcc -Wall -L $(CUNIT_PATH_PREFIX)lib -I $(CUNIT_PATH_PREFIX)include/$(CUNIT_DIRECTORY) -o test helper.o test.c -lcunit -lcurses
