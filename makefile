@@ -10,16 +10,16 @@ ifeq ($(OS), Linux)
   CUNIT_DIRECTORY = CUnit/
 endif
 
-OBJECTS = helper.o
+OBJECTS = helper.o term.o
 def = defs.h
 CC = gcc
 CFLAGS = -g -Wall 
 
 program: main.o
 	$(CC) $(CFLAGS) -o program main.o $(OBJECTS) -lcurses -ggdb -g
-main.o: $(def) helper.o term.o
+main.o: $(def) helper.o
 helper.o: $(def) term.o
-term.o: term.c
+term.o: $(def) 
 
 test.o: test.c
 	$(CC) -c $(CFLAGS) -I $(CUNIT_PATH_PREFIX)include/$(CUNIT_DIRECTORY) test.c

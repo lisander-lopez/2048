@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include "defs.h"
+#include "term.h"
 
 typedef struct Box
 {
@@ -12,7 +13,7 @@ typedef struct Box
 
 typedef struct Game
 {
-    int high;
+    unsigned int high;
     Box **grid;
 } Game;
 
@@ -233,15 +234,16 @@ int highScore(Box **grid)
     return 0;
 }
 
-Box **populateGrid(Box **grid)
+Box **populateGrid(Game g)
 {
-    grid = calloc(GRID_SIZE, sizeof(Box) * GRID_SIZE);
+    g.grid = calloc(GRID_SIZE, sizeof(Box) * GRID_SIZE);
     for (int i = 0; i < GRID_SIZE; i++)
     {
-        grid[i] = malloc(sizeof(Box) * GRID_SIZE);
+        g.grid[i] = malloc(sizeof(Box) * GRID_SIZE);
     }
-    addRandom(grid);
-    return grid;
+    addRandom(g.grid);
+    g.high = 0;
+    return g.grid;
 }
 
 bool addRandom(Box **grid)
@@ -276,13 +278,20 @@ bool addRandom(Box **grid)
     }
 }
 
-void displayGrid(Box **grid)
+void displayGrid(Game g)
 {
+    clearterm();
     for (int y = 0; y < GRID_SIZE; y++)
     {
         for (int x = 0; x < GRID_SIZE; x++)
         {
-            if (grid[x][y].val == 0)
+            unsigned int val = g.grid[x][y].val;
+            //printf("Value is: %d\n", val);
+            if (val >= g.high)
+            {
+                g.high = val;
+            }
+            if (val == 0)
             { // If its a zero Box
                 move(y, x);
                 refresh();
@@ -292,7 +301,7 @@ void displayGrid(Box **grid)
             {
                 move(y, x);
                 refresh();
-                printf("[ %4u ]", grid[x][y].val);
+                printf("[ %4u ]", g.grid[x][y].val);
             }
         }
         printf("\n");

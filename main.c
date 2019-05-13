@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdbool.h>
 #include <ncurses.h>
 #include "defs.h"
 #include "helper.h"
@@ -22,7 +23,7 @@ int main(int argsc, char *argsv[])
 {
     // Setup Game and Grid
     Game g;
-    g.grid = populateGrid(g.grid);
+    g.grid = populateGrid(g);
 
     srand(time(NULL));   // Init rand seed
     bool running = true; // Not loosing condition
@@ -33,7 +34,7 @@ int main(int argsc, char *argsv[])
     //noraw();
     //noecho();
     //Game Loop
-    displayGrid(g.grid);
+    displayGrid(g);
     while (running)
     {
         int c = getch();
@@ -46,7 +47,7 @@ int main(int argsc, char *argsv[])
             }
             else
             {
-                displayGrid(g.grid);
+                displayGrid(g);
             }
         }
         if (c == KEY_RIGHT)
@@ -57,7 +58,7 @@ int main(int argsc, char *argsv[])
             }
             else
             {
-                displayGrid(g.grid);
+                displayGrid(g);
             }
         }
         if (c == KEY_UP)
@@ -68,7 +69,7 @@ int main(int argsc, char *argsv[])
             }
             else
             {
-                displayGrid(g.grid);
+                displayGrid(g);
             }
         }
         if (c == KEY_DOWN)
@@ -79,9 +80,10 @@ int main(int argsc, char *argsv[])
             }
             else
             {
-                displayGrid(g.grid);
+                displayGrid(g);
             }
         }
+        printf("HIGH SCORE: %d\n", g.high);
     }
     refresh();
     getch();

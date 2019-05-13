@@ -42,10 +42,14 @@ bool moveDown(Box **grid);
 int highScore(Box **grid);
 
 // Populates all cells with empty boxes.
-Box **populateGrid();
+Box **populateGrid(Game g);
 
-// Displays Grid to the terminal
-void displayGrid(Box **grid);
+/* Displays Grid to the terminal 
+ * AND calculates the highest score (Since we iterate
+ * to print out the grid might aswell calculate 
+ * the highest score on the grid)
+*/
+void displayGrid(Game g);
 
 /* Moves elements to the left in all arrays in grid
     You have to call this GRID_SIZE - 1 times.
